@@ -101,7 +101,6 @@ open class LegacyRouteController: NSObject, Router, InternalRouter, CLLocationMa
 
         super.init()
         
-        checkForUpdates()
         checkForLocationUsageDescription()
     }
 
@@ -385,25 +384,6 @@ open class LegacyRouteController: NSObject, Router, InternalRouter, CLLocationMa
                 strongSelf.announce(reroute: route, at: location, proactive: false)
             }
         }
-    }
-
-    private func checkForUpdates() {
-        #if TARGET_IPHONE_SIMULATOR
-        guard (NSClassFromString("XCTestCase") == nil) else { return } // Short-circuit when running unit tests
-            guard let version = Bundle(for: RouteController.self).object(forInfoDictionaryKey: "CFBundleShortVersionString") else { return }
-            let latestVersion = String(describing: version)
-            _ = URLSession.shared.dataTask(with: URL(string: "https://docs.mapbox.com/ios/navigation/latest_version.txt")!, completionHandler: { (data, response, error) in
-                if let _ = error { return }
-                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else { return }
-
-                guard let data = data, let currentVersion = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .newlines) else { return }
-
-                if latestVersion != currentVersion {
-                    let updateString = NSLocalizedString("UPDATE_AVAILABLE", bundle: .mapboxCoreNavigation, value: "Mapbox Navigation SDK for iOS version %@ is now available.", comment: "Inform developer an update is available")
-                    print(String.localizedStringWithFormat(updateString, latestVersion), "https://github.com/mapbox/mapbox-navigation-ios/releases/tag/v\(latestVersion)")
-                }
-            }).resume()
-        #endif
     }
 
     private func checkForLocationUsageDescription() {

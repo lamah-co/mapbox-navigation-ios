@@ -2,7 +2,6 @@ import UIKit
 import Mapbox
 import MapboxDirections
 import MapboxCoreNavigation
-import MapboxMobileEvents
 import Turf
 
 class ArrowFillPolyline: MGLPolylineFeature {}
