@@ -79,7 +79,6 @@ class ImageDownloader: NSObject, ReentrantImageDownloader, URLSessionDataDelegat
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = self.headers
         request.cachePolicy = .reloadIgnoringCacheData
-        request.setValue(URLSession.userAgent, forHTTPHeaderField: "User-Agent")
         return request
     }
 

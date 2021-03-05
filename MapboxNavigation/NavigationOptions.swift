@@ -4,7 +4,7 @@ import MapboxCoreNavigation
 /**
  Customization options for the turn-by-turn navigation user experience in a `NavigationViewController`.
  
- A navigation options object is where you place customized components that the navigation view controller uses during its lifetime, such as styles or voice controllers. You would likely use this class if you need to specify a Mapbox access token programmatically instead of in the Info.plist file.
+ A navigation options object is where you place customized components that the navigation view controller uses during its lifetime, such as styles or voice controllers.
  
  - note: `NavigationOptions` is designed to be used with the `NavigationViewController` class to customize the user experience. To specify criteria when calculating routes, use the `NavigationRouteOptions` class. To modify user preferences that persist across navigation sessions, use the `NavigationSettings` class.
  */

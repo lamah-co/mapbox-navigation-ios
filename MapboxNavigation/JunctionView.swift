@@ -45,9 +45,7 @@ public class JunctionView: UIImageView {
                 show(animated: true)
             } else {
                 guard let imageURL = guidanceViewImageRepresentation.imageURL else { return }
-                let baseURLString = imageURL.absoluteString
-                guard let accessToken = service.directions.credentials.accessToken else { return }
-                let stringURL = baseURLString + "&access_token=" + accessToken
+                let stringURL = imageURL.absoluteString
 
                 guard let guidanceViewImageURL = URL(string: stringURL) else { return }
                 imageRepository.imageWithURL(guidanceViewImageURL, cacheKey: guidanceView.cacheKey!) { [unowned self] (downloadedImage) in
