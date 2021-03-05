@@ -49,7 +49,6 @@ Pod::Spec.new do |s|
   s.dependency "MapboxDirections", "~> 1.2.0"
   s.dependency "MapboxGeocoder.swift", "~> 0.10.0"
   s.dependency "Mapbox-iOS-SDK", "~> 6.0"
-  s.dependency "MapboxMobileEvents", "~> 0.10.2"
   s.dependency "Solar", "~> 2.1"
   s.dependency "Turf", "~> 1.0"
   s.dependency "MapboxSpeech", "~> 1.0"

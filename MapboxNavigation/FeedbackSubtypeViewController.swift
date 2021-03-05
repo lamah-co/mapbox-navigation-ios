@@ -12,10 +12,10 @@ class FeedbackSubtypeViewController: FeedbackViewController {
     private var selectedItems = [FeedbackItem]()
 
     /**
-     Initialize a new FeedbackSubtypeViewController from a `NavigationEventsManager`.
+     Initialize a new FeedbackSubtypeViewController.
      */
-    public init(eventsManager: NavigationEventsManager, feedbackType: FeedbackType) {
-        super.init(eventsManager: eventsManager)
+    public init(feedbackType: FeedbackType) {
+        super.init()
         self.activeFeedbackType = feedbackType
         reportButton.setBackgroundImage(UIImage(color: #colorLiteral(red: 0.337254902, green: 0.6588235294, blue: 0.9843137255, alpha: 1)), for: .normal)
         reportButton.layer.cornerRadius = 24
@@ -161,11 +161,8 @@ class FeedbackSubtypeViewController: FeedbackViewController {
 
     private func sendReport() {
         if selectedItems.count > 0 {
-            if let uuid = self.uuid {
-                for item in selectedItems {
-                    delegate?.feedbackViewController(self, didSend: item, uuid: uuid)
-                    eventsManager?.updateFeedback(uuid: uuid, type: item.feedbackType, source: .user, description: nil)
-                }
+            for item in selectedItems {
+                delegate?.feedbackViewController(self, didSend: item)
             }
 
             guard let parent = presentingViewController else {

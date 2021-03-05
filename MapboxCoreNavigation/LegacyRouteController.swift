@@ -2,7 +2,6 @@ import Foundation
 import CoreLocation
 import MapboxDirections
 import Polyline
-import MapboxMobileEvents
 import Turf
 
 protocol RouteControllerDataSource: class {
@@ -542,7 +541,7 @@ open class LegacyRouteController: NSObject, Router, InternalRouter, CLLocationMa
     
     @available(swift, obsoleted: 0.1, message: "MapboxNavigationService is now the point-of-entry to MapboxCoreNavigation. Direct use of RouteController is no longer reccomended. See MapboxNavigationService for more information.")
     /// :nodoc: Obsoleted method.
-    public convenience init(along route: Route, directions: Directions = Directions.shared, dataSource: NavigationLocationManager = NavigationLocationManager(), eventsManager: NavigationEventsManager) {
+    public convenience init(along route: Route, directions: Directions = Directions.shared, dataSource: NavigationLocationManager = NavigationLocationManager()) {
         fatalError()
     }
     
@@ -559,16 +558,6 @@ open class LegacyRouteController: NSObject, Router, InternalRouter, CLLocationMa
     @available(swift, obsoleted: 0.1, message: "NavigationViewController no longer directly manages a TunnelIntersectionManager. See MapboxNavigationService, which contains a reference to the locationManager, for more information.")
     /// :nodoc: obsoleted
     public final var tunnelIntersectionManager: Any! {
-        get {
-            fatalError()
-        }
-        set {
-            fatalError()
-        }
-    }
-    @available(swift, obsoleted: 0.1, renamed: "navigationService.eventsManager", message: "NavigationViewController no longer directly manages a NavigationEventsManager. See MapboxNavigationService, which contains a reference to the eventsManager, for more information.")
-    /// :nodoc: obsoleted
-    public final var eventsManager: NavigationEventsManager! {
         get {
             fatalError()
         }

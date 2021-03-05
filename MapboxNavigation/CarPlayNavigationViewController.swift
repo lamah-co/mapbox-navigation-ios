@@ -468,12 +468,6 @@ public class CarPlayNavigationViewController: UIViewController, NavigationMapVie
         
         let feedbackButtonHandler: (_: CPGridButton) -> Void = { [weak self] (button) in
             self?.carInterfaceController.popTemplate(animated: true)
-
-            //TODO: fix this Demeter violation with proper encapsulation
-            guard let uuid = self?.navigationService.eventsManager.recordFeedback() else { return }
-            let foundItem = feedbackItems.filter { $0.image == button.image }
-            guard let feedbackItem = foundItem.first else { return }
-            self?.navigationService.eventsManager.updateFeedback(uuid: uuid, type: feedbackItem.feedbackType, source: .user, description: nil)
             
             let dismissTitle = NSLocalizedString("CARPLAY_DISMISS", bundle: .mapboxNavigation, value: "Dismiss", comment: "Title for dismiss button")
             let submittedTitle = NSLocalizedString("CARPLAY_SUBMITTED_FEEDBACK", bundle: .mapboxNavigation, value: "Submitted", comment: "Alert title that shows when feedback has been submitted")

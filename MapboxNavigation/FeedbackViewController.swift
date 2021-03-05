@@ -27,7 +27,7 @@ public protocol FeedbackViewControllerDelegate: class, UnimplementedLogging {
     /**
      Called when the user submits a feedback event.
      */
-    func feedbackViewController(_ feedbackViewController: FeedbackViewController, didSend feedbackItem: FeedbackItem, uuid: UUID)
+    func feedbackViewController(_ feedbackViewController: FeedbackViewController, didSend feedbackItem: FeedbackItem)
     
     /**
      Called when a `FeedbackViewController` is dismissed for any reason without giving explicit feedback.
@@ -46,7 +46,7 @@ public extension FeedbackViewControllerDelegate {
     /**
      `UnimplementedLogging` prints a warning to standard output the first time this method is called.
      */
-    func feedbackViewController(_ feedbackViewController: FeedbackViewController, didSend feedbackItem: FeedbackItem, uuid: UUID) {
+    func feedbackViewController(_ feedbackViewController: FeedbackViewController, didSend feedbackItem: FeedbackItem) {
         logUnimplemented(protocolType: FeedbackViewControllerDelegate.self, level: .debug)
     }
     
@@ -126,29 +126,14 @@ public class FeedbackViewController: UIViewController, DismissDraggable, UIGestu
     }
     
     /**
-     The events manager used to send feedback events.
+     Initialize a new FeedbackViewController.
      */
-    public weak var eventsManager: NavigationEventsManager?
-    
-    var uuid: UUID? {
-        return eventsManager?.recordFeedback()
-    }
-    
-    /**
-     Initialize a new FeedbackViewController from a `NavigationEventsManager`.
-     */
-    public init(eventsManager: NavigationEventsManager) {
-        self.eventsManager = eventsManager
+    public init() {
         super.init(nibName: nil, bundle: nil)
         commonInit()
     }
-
-    public override func encode(with aCoder: NSCoder) {
-        aCoder.encode(eventsManager, forKey: "NavigationEventsManager")
-    }
     
     required public init?(coder aDecoder: NSCoder) {
-        eventsManager = aDecoder.decodeObject(of: [NavigationEventsManager.self], forKey: "NavigationEventsManager") as? NavigationEventsManager
         super.init(coder: aDecoder)
         commonInit()
     }
@@ -233,10 +218,7 @@ public class FeedbackViewController: UIViewController, DismissDraggable, UIGestu
     }
     
     func send(_ item: FeedbackItem) {
-        if let uuid = self.uuid {
-            delegate?.feedbackViewController(self, didSend: item, uuid: uuid)
-            eventsManager?.updateFeedback(uuid: uuid, type: item.feedbackType, source: .user, description: nil)
-        }
+        delegate?.feedbackViewController(self, didSend: item)
         
         guard let parent = presentingViewController else {
             dismiss(animated: true)
@@ -250,9 +232,6 @@ public class FeedbackViewController: UIViewController, DismissDraggable, UIGestu
     
     func dismissFeedbackItem() {
         delegate?.feedbackViewControllerDidCancel(self)
-        if let uuid = self.uuid {
-            eventsManager?.cancelFeedback(uuid: uuid)
-        }
         dismiss(animated: true, completion: nil)
     }
 }
@@ -282,8 +261,8 @@ extension FeedbackViewController: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let item = sections[indexPath.row]
 
-        if detailedFeedbackEnabled, let eventsManager = eventsManager {
-            let feedbackViewController = FeedbackSubtypeViewController(eventsManager: eventsManager, feedbackType: item.feedbackType)
+        if detailedFeedbackEnabled {
+            let feedbackViewController = FeedbackSubtypeViewController(feedbackType: item.feedbackType)
 
             guard let parent = presentingViewController else {
                 dismiss(animated: true)

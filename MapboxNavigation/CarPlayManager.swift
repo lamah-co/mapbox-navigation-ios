@@ -23,7 +23,7 @@ public enum CarPlayActivity: Int {
  
  Messages declared in the `CPApplicationDelegate` protocol should be sent to this object in the containing application's application delegate. Implement `CarPlayManagerDelegate` in the containing application and assign an instance to the `delegate` property of your `CarPlayManager` instance.
  
- - note: It is very important you have a single `CarPlayManager` instance at any given time. This should be managed by your `UIApplicationDelegate` class if you choose to supply your `accessToken` to the `CarPlayManager.eventsManager` via `NavigationEventsManager.init(dataSource:accessToken:mobileEventsManager)`, instead of the Info.plist.
+ - note: It is very important you have a single `CarPlayManager` instance at any given time.
  */
 @available(iOS 12.0, *)
 public class CarPlayManager: NSObject {
@@ -75,12 +75,6 @@ public class CarPlayManager: NSObject {
      A Boolean value indicating whether the phone is connected to CarPlay.
      */
     public static var isConnected = false
-
-    /**
-     The events manager used during turn-by-turn navigation while connected to
-     CarPlay.
-     */
-    public let eventsManager: NavigationEventsManager
     
     /**
      The object that calculates routes when the user interacts with the CarPlay
@@ -184,25 +178,20 @@ public class CarPlayManager: NSObject {
      
      - parameter styles: The styles to display in the CarPlay interface. If this argument is omitted, `DayStyle` and `NightStyle` are displayed by default.
      - parameter directions: The object that calculates routes when the user interacts with the CarPlay interface. If this argument is `nil` or omitted, the shared `Directions` object is used by default.
-     - parameter eventsManager: The events manager to use during turn-by-turn navigation while connected to CarPlay. If this argument is `nil` or omitted, a standard `NavigationEventsManager` object is used by default.
      */
     public convenience init(styles: [Style]? = nil,
-                            directions: Directions? = nil,
-                            eventsManager: NavigationEventsManager? = nil) {
+                            directions: Directions? = nil) {
         self.init(styles: styles,
                   directions: directions,
-                  eventsManager: eventsManager,
                   navigationViewControllerClass: nil)
     }
     
     internal init(styles: [Style]? = nil,
                   directions: Directions? = nil,
-                  eventsManager: NavigationEventsManager? = nil,
                   navigationViewControllerClass: CarPlayNavigationViewController.Type? = nil) {
         self.styles = styles ?? [DayStyle(), NightStyle()]
         let mapboxDirections = directions ?? .shared
         self.directions = mapboxDirections
-        self.eventsManager = eventsManager ?? NavigationEventsManager(dataSource: nil, accessToken: mapboxDirections.credentials.accessToken)
         self.mapTemplateProvider = MapTemplateProvider()
         self.navigationViewControllerType = navigationViewControllerClass ?? CarPlayNavigationViewController.self
         
@@ -254,8 +243,6 @@ extension CarPlayManager: CPApplicationDelegate {
         let mapTemplate = self.mapTemplate(for: interfaceController)
         mainMapTemplate = mapTemplate
         interfaceController.setRootTemplate(mapTemplate, animated: false)
-            
-        eventsManager.sendCarPlayConnectEvent()
     }
 
     public func application(_ application: UIApplication, didDisconnectCarInterfaceController interfaceController: CPInterfaceController, from window: CPWindow) {
@@ -268,8 +255,6 @@ extension CarPlayManager: CPApplicationDelegate {
 
         mainMapTemplate = nil
         carWindow = nil
-
-        eventsManager.sendCarPlayDisconnectEvent()
 
         if let shouldDisableIdleTimer = delegate?.carplayManagerShouldDisableIdleTimer(self) {
             UIApplication.shared.isIdleTimerDisabled = !shouldDisableIdleTimer
