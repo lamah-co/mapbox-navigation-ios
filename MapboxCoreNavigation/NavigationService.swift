@@ -119,7 +119,7 @@ public protocol NavigationService: CLLocationManagerDelegate, RouterDataSource, 
  If you use a navigation service by itself, outside of `NavigationViewController`, call `start()` when the user is ready to begin navigating along the route.
  */
 public class MapboxNavigationService: NSObject, NavigationService {
-    typealias DefaultRouter = RouteController
+    typealias DefaultRouter = LegacyRouteController
     
     /**
      The default time interval before beginning simulation when the `.onPoorGPS` simulation option is enabled.
@@ -435,7 +435,7 @@ extension MapboxNavigationService: CLLocationManagerDelegate {
 
 //MARK: - RouteControllerDelegate
 extension MapboxNavigationService: RouterDelegate {
-    typealias Default = RouteController.DefaultBehavior
+    typealias Default = LegacyRouteController.DefaultBehavior
     
     public func router(_ router: Router, willRerouteFrom location: CLLocation) {
         //save any progress made by the router until now

@@ -550,7 +550,7 @@ extension NavigationViewController: RouteMapViewControllerDelegate {
 //MARK: - NavigationServiceDelegate
 extension NavigationViewController: NavigationServiceDelegate {
     public func navigationService(_ service: NavigationService, shouldRerouteFrom location: CLLocation) -> Bool {
-        let defaultBehavior = RouteController.DefaultBehavior.shouldRerouteFromLocation
+        let defaultBehavior = LegacyRouteController.DefaultBehavior.shouldRerouteFromLocation
         let componentsWantReroute = navigationComponents.allSatisfy { $0.navigationService(service, shouldRerouteFrom: location) }
         return componentsWantReroute && (delegate?.navigationViewController(self, shouldRerouteFrom: location) ?? defaultBehavior)
     }
@@ -588,7 +588,7 @@ extension NavigationViewController: NavigationServiceDelegate {
     }
     
     public func navigationService(_ service: NavigationService, shouldDiscard location: CLLocation) -> Bool {
-        let defaultBehavior = RouteController.DefaultBehavior.shouldDiscardLocation
+        let defaultBehavior = LegacyRouteController.DefaultBehavior.shouldDiscardLocation
         let componentsWantToDiscard = navigationComponents.allSatisfy { $0.navigationService(service, shouldDiscard: location) }
         return componentsWantToDiscard && (delegate?.navigationViewController(self, shouldDiscard: location) ?? defaultBehavior)
     }
@@ -609,7 +609,7 @@ extension NavigationViewController: NavigationServiceDelegate {
         guard let destination = progress.currentLeg.destination else {
             preconditionFailure("Current leg has no destination")
         }
-        let shouldPrevent = navigationService.delegate?.navigationService(navigationService, shouldPreventReroutesWhenArrivingAt: destination) ?? RouteController.DefaultBehavior.shouldPreventReroutesWhenArrivingAtWaypoint
+        let shouldPrevent = navigationService.delegate?.navigationService(navigationService, shouldPreventReroutesWhenArrivingAt: destination) ?? LegacyRouteController.DefaultBehavior.shouldPreventReroutesWhenArrivingAtWaypoint
         let userHasArrivedAndShouldPreventRerouting = shouldPrevent && !progress.currentLegProgress.userHasArrivedAtWaypoint
         
         if snapsUserLocationAnnotationToRoute,
@@ -661,7 +661,7 @@ extension NavigationViewController: NavigationServiceDelegate {
     }
     
     public func navigationService(_ service: NavigationService, didArriveAt waypoint: Waypoint) -> Bool {
-        let defaultBehavior = RouteController.DefaultBehavior.didArriveAtWaypoint
+        let defaultBehavior = LegacyRouteController.DefaultBehavior.didArriveAtWaypoint
         let componentsWantAdvance = navigationComponents.allSatisfy { $0.navigationService(service, didArriveAt: waypoint) }
         let advancesToNextLeg = componentsWantAdvance && (delegate?.navigationViewController(self, didArriveAt: waypoint) ?? defaultBehavior)
         

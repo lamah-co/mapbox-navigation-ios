@@ -165,7 +165,7 @@ extension InternalRouter where Self: Router {
             
             self.routeProgress.refreshRoute(with: response.route, at: location)
             
-            var userInfo = [RouteController.NotificationUserInfoKey: Any]()
+            var userInfo = [LegacyRouteController.NotificationUserInfoKey: Any]()
             userInfo[.routeProgressKey] = self.routeProgress
             NotificationCenter.default.post(name: .routeControllerDidRefreshRoute, object: self, userInfo: userInfo)
             self.delegate?.router(self, didRefresh: self.routeProgress)
@@ -262,7 +262,7 @@ extension InternalRouter where Self: Router {
     }
     
     func announce(reroute newRoute: Route, at location: CLLocation?, proactive: Bool) {
-        var userInfo = [RouteController.NotificationUserInfoKey: Any]()
+        var userInfo = [LegacyRouteController.NotificationUserInfoKey: Any]()
         if let location = location {
             userInfo[.locationKey] = location
         }

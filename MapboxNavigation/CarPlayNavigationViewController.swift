@@ -318,15 +318,15 @@ public class CarPlayNavigationViewController: UIViewController, NavigationMapVie
     }
     
     @objc func visualInstructionDidChange(_ notification: NSNotification) {
-        let routeProgress = notification.userInfo![RouteController.NotificationUserInfoKey.routeProgressKey] as! RouteProgress
+        let routeProgress = notification.userInfo![LegacyRouteController.NotificationUserInfoKey.routeProgressKey] as! RouteProgress
         updateManeuvers(for: routeProgress)
         mapView?.showWaypoints(on: routeProgress.route)
         mapView?.addArrow(route: routeProgress.route, legIndex: routeProgress.legIndex, stepIndex: routeProgress.currentLegProgress.stepIndex + 1)
     }
     
     @objc func progressDidChange(_ notification: NSNotification) {
-        let routeProgress = notification.userInfo![RouteController.NotificationUserInfoKey.routeProgressKey] as! RouteProgress
-        let location = notification.userInfo![RouteController.NotificationUserInfoKey.locationKey] as! CLLocation
+        let routeProgress = notification.userInfo![LegacyRouteController.NotificationUserInfoKey.routeProgressKey] as! RouteProgress
+        let location = notification.userInfo![LegacyRouteController.NotificationUserInfoKey.locationKey] as! CLLocation
         
         // Update the user puck
         mapView?.updatePreferredFrameRate(for: routeProgress)

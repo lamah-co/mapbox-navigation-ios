@@ -146,7 +146,7 @@ public protocol RouterDelegate: class, UnimplementedLogging {
 public extension RouterDelegate {
     func router(_ router: Router, shouldRerouteFrom location: CLLocation) -> Bool {
         logUnimplemented(protocolType: RouterDelegate.self, level: .debug)
-        return RouteController.DefaultBehavior.shouldRerouteFromLocation
+        return LegacyRouteController.DefaultBehavior.shouldRerouteFromLocation
     }
     
     func router(_ router: Router, willRerouteFrom location: CLLocation) {
@@ -155,7 +155,7 @@ public extension RouterDelegate {
     
     func router(_ router: Router, shouldDiscard location: CLLocation) -> Bool {
         logUnimplemented(protocolType: RouterDelegate.self, level: .debug)
-        return RouteController.DefaultBehavior.shouldDiscardLocation
+        return LegacyRouteController.DefaultBehavior.shouldDiscardLocation
     }
     
     func router(_ router: Router, didRerouteAlong route: Route, at location: CLLocation?, proactive: Bool) {
@@ -184,17 +184,17 @@ public extension RouterDelegate {
     
     func router(_ router: Router, didArriveAt waypoint: Waypoint) -> Bool {
         logUnimplemented(protocolType: RouterDelegate.self, level: .info)
-        return RouteController.DefaultBehavior.didArriveAtWaypoint
+        return LegacyRouteController.DefaultBehavior.didArriveAtWaypoint
     }
     
     func router(_ router: Router, shouldPreventReroutesWhenArrivingAt waypoint: Waypoint) -> Bool {
         logUnimplemented(protocolType: RouterDelegate.self, level: .info)
-        return RouteController.DefaultBehavior.shouldPreventReroutesWhenArrivingAtWaypoint
+        return LegacyRouteController.DefaultBehavior.shouldPreventReroutesWhenArrivingAtWaypoint
     }
     
     func routerShouldDisableBatteryMonitoring(_ router: Router) -> Bool {
         logUnimplemented(protocolType: RouterDelegate.self, level: .info)
-        return RouteController.DefaultBehavior.shouldDisableBatteryMonitoring
+        return LegacyRouteController.DefaultBehavior.shouldDisableBatteryMonitoring
     }
 }
 
