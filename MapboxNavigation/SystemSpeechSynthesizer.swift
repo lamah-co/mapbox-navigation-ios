@@ -1,7 +1,6 @@
 import AVFoundation
 import MapboxDirections
 import MapboxCoreNavigation
-import MapboxSpeech
 
 /**
  `SpeechSynthesizing` implementation, using `AVSpeechSynthesizer`.

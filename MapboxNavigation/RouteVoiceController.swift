@@ -2,7 +2,6 @@ import Foundation
 import AVFoundation
 import MapboxDirections
 import MapboxCoreNavigation
-import MapboxSpeech
 
 extension NSAttributedString {
     public func pronounced(_ pronunciation: String) -> NSAttributedString {
@@ -81,8 +80,8 @@ open class RouteVoiceController: NSObject, AVSpeechSynthesizerDelegate {
     /**
      Default initializer for `RouteVoiceController`.
      */
-    public init(navigationService: NavigationService, speechSynthesizer: SpeechSynthesizing? = nil, accessToken: String? = nil, host: String? = nil) {
-        self.speechSynthesizer = speechSynthesizer ?? MultiplexedSpeechSynthesizer(accessToken: accessToken, host: host)
+    public init(navigationService: NavigationService, speechSynthesizer: SpeechSynthesizing? = nil) {
+        self.speechSynthesizer = speechSynthesizer ?? MultiplexedSpeechSynthesizer()
         
         super.init()
 

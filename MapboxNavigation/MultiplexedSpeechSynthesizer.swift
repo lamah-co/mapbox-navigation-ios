@@ -1,7 +1,6 @@
 import AVFoundation
 import MapboxDirections
 import MapboxCoreNavigation
-import MapboxSpeech
 
 /// `SpeechSynthesizing`implementation, aggregating other implementations, to allow 'fallback' mechanism.
 /// Can be initialized with array of synthesizers which will be called in order of appearance, until one of them is capable to vocalize current `SpokenInstruction`
@@ -62,9 +61,8 @@ open class MultiplexedSpeechSynthesizer: SpeechSynthesizing {
     
     // MARK: - Lifecycle
     
-    public init(_ speechSynthesizers: [SpeechSynthesizing]? = nil, accessToken: String? = nil, host: String? = nil) {
+    public init(_ speechSynthesizers: [SpeechSynthesizing]? = nil) {
         let synthesizers = speechSynthesizers ?? [
-            MapboxSpeechSynthesizer(accessToken: accessToken, host: host),
             SystemSpeechSynthesizer()]
         self.speechSynthesizers = synthesizers
         

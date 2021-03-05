@@ -294,9 +294,8 @@ open class NavigationViewController: UIViewController, NavigationStatusPresenter
         
         self.navigationService = navigationOptions?.navigationService ?? MapboxNavigationService(route: route, routeIndex: routeIndex, routeOptions: routeOptions)
         self.navigationService.delegate = self
-
-        let credentials = navigationService.directions.credentials
-        self.voiceController = navigationOptions?.voiceController ?? RouteVoiceController(navigationService: navigationService,accessToken: credentials.accessToken, host: credentials.host.absoluteString)
+        
+        self.voiceController = navigationOptions?.voiceController ?? RouteVoiceController(navigationService: navigationService)
 
         NavigationSettings.shared.distanceUnit = routeOptions.locale.usesMetric ? .kilometer : .mile
         

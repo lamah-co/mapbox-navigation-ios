@@ -1,7 +1,6 @@
 import Foundation
 import MapboxCoreNavigation
 import MapboxDirections
-import MapboxSpeech
 import AVKit
 
 /**
@@ -34,17 +33,15 @@ public enum SpeechError: LocalizedError {
     /**
      An error occurred when requesting speech assets from a server API.
      - parameter instruction: the instruction that failed.
-     - parameter options: the SpeechOptions that were used to make the API request.
      - parameter underlying: the underlying `Error` returned by the API.
      */
-    case apiError(instruction: SpokenInstruction, options: SpeechOptions, underlying: Error?)
+    case apiError(instruction: SpokenInstruction, underlying: Error?)
     
     /**
      The speech engine did not fail with the error itself, but did not provide actual data to vocalize.
      - parameter instruction: the instruction that failed.
-     - parameter options: the SpeechOptions that were used to make the API request.
      */
-    case noData(instruction: SpokenInstruction, options: SpeechOptions)
+    case noData(instruction: SpokenInstruction)
     
     /**
      The speech engine was unable to perform an action on the system audio service.
