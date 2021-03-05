@@ -61,7 +61,7 @@ open class MultiplexedSpeechSynthesizer: SpeechSynthesizing {
     
     // MARK: - Lifecycle
     
-    public init(_ speechSynthesizers: [SpeechSynthesizing]? = nil) {
+    public init(_ speechSynthesizers: [SpeechSynthesizing]? = nil, accessToken: String? = nil, host: String? = nil) {
         let synthesizers = speechSynthesizers ?? [
             SystemSpeechSynthesizer()]
         self.speechSynthesizers = synthesizers
