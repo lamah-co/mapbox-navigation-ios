@@ -34,6 +34,8 @@ open class LegacyRouteController: NSObject, Router, InternalRouter, CLLocationMa
     public var waypointArrivalThreshold: TimeInterval = 5.0
     
     public var reroutesProactively = true
+
+    public var shouldIncrementVisualInstructionIndexOverBounds = false
     
     public var refreshesRoute: Bool = true
 
@@ -492,7 +494,22 @@ open class LegacyRouteController: NSObject, Router, InternalRouter, CLLocationMa
                     LegacyRouteController.NotificationUserInfoKey.routeProgressKey: routeProgress,
                     LegacyRouteController.NotificationUserInfoKey.visualInstructionKey: visualInstruction,
                 ])
-                currentStepProgress.visualInstructionIndex += 1
+
+                let shouldIncrementVisualInstructionIndex: Bool
+                if shouldIncrementVisualInstructionIndexOverBounds {
+                    shouldIncrementVisualInstructionIndex = true
+                } else {
+                    if let visualInstructionsCount = currentStepProgress.step.instructionsDisplayedAlongStep?.count {
+                        shouldIncrementVisualInstructionIndex = currentStepProgress.visualInstructionIndex < visualInstructionsCount - 1
+                    } else {
+                        shouldIncrementVisualInstructionIndex = false
+                    }
+                }
+
+                if shouldIncrementVisualInstructionIndex {
+                    currentStepProgress.visualInstructionIndex += 1
+                }
+
                 return
             }
         }
