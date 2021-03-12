@@ -6,7 +6,7 @@ import MapboxDirections
 /**
  Maximum number of meters the user can travel away from step before `RouteControllerShouldReroute` is emitted.
  */
-public var RouteControllerMaximumDistanceBeforeRecalculating: CLLocationDistance = 50
+public var RouteControllerMaximumDistanceBeforeRecalculating: CLLocationDistance = 25
 
 /**
  Threshold user must be in within to count as completing a step. One of two heuristics used to know when a user completes a step, see `RouteControllerManeuverZoneRadius`.
@@ -47,26 +47,6 @@ public let RouteControllerLinkedInstructionBufferMultiplier: Double = 1.2
  The minimum speed value before the user's actual location can be considered over the snapped location.
  */
 public var RouteSnappingMinimumSpeed: CLLocationSpeed = 3
-
-/**
- The minimum distance threshold used for giving a "Continue" type instructions.
- */
-public var RouteControllerMinimumDistanceForContinueInstruction: CLLocationDistance = 2_000
-
-/**
- The minimum distance in the opposite direction of travel that triggers rerouting.
- */
-public var RouteControllerMinimumBacktrackingDistanceForRerouting: CLLocationDistance = 50
-
-/**
- Minimum number of consecutive location updates moving backwards before the user is rerouted.
- */
-public var RouteControllerMinimumNumberLocationUpdatesBackwards = 3
-
-/**
- Number of seconds reroute feedback sections are shown in the feedback view after the user is rerouted.
- */
-public var RouteControllerNumberOfSecondsForRerouteFeedback: TimeInterval = 10
 
 /**
  Minimum duration remaining in seconds for proactive rerouting to be active.
