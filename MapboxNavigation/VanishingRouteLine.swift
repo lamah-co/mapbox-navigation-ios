@@ -146,7 +146,7 @@ extension NavigationMapView {
      Updates the route line appearance from the origin point to the indicated point
      - parameter coordinate: current position of the puck
      */
-    func updateTraveledRouteLine(_ coordinate: CLLocationCoordinate2D?) {
+    public func updateTraveledRouteLine(_ coordinate: CLLocationCoordinate2D?) {
         guard let granularDistances = routeLineGranularDistances,let index = routeRemainingDistancesIndex, let location = coordinate else { return }
         let traveledIndex = granularDistances.distanceArray[index]
         let upcomingPoint = traveledIndex.point

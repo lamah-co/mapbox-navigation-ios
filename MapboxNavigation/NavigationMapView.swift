@@ -53,6 +53,8 @@ open class NavigationMapView: MGLMapView, UIGestureRecognizerDelegate {
      will be replaced with the `CongestionLevel.low` congestion level.
      */
     public var roadClassesWithOverriddenCongestionLevels: Set<MapboxStreetsRoadClass>? = nil
+
+    public var routeLineTracksTraversal: Bool = false
     
     /**
      The object that acts as the navigation delegate of the map view.
@@ -137,7 +139,6 @@ open class NavigationMapView: MGLMapView, UIGestureRecognizerDelegate {
     var routePoints: RoutePoints?
     var routeLineGranularDistances: RouteLineGranularDistances?
     var routeRemainingDistancesIndex: Int?
-    var routeLineTracksTraversal: Bool = false
     var fractionTraveled: Double = 0.0
     var preFractionTraveled: Double = 0.0
     var vanishingRouteLineUpdateTimer: Timer? = nil
