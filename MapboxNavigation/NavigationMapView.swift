@@ -269,6 +269,12 @@ open class NavigationMapView: MGLMapView, UIGestureRecognizerDelegate {
         showsUserLocation = false
         
     }
+        
+    open override func reloadStyle(_ sender: Any?) {
+        vanishingRouteLineUpdateTimer?.invalidate()
+        vanishingRouteLineUpdateTimer = nil
+        super.reloadStyle(sender)
+    }
     
     open override func layoutMarginsDidChange() {
         super.layoutMarginsDidChange()
