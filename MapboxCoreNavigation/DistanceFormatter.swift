@@ -30,22 +30,22 @@ struct RoundingTable {
         .init(maximumDistance: Measurement(value: 100, unit: .meters), roundingIncrement: 25, maximumFractionDigits: 0),
         .init(maximumDistance: Measurement(value: 999, unit: .meters), roundingIncrement: 50, maximumFractionDigits: 0),
         // The rounding increment is a small value rather than 0 because of floating-point imprecision that causes 0.5 to round down.
-        .init(maximumDistance: Measurement(value: 3, unit: .kilometers), roundingIncrement: 0.0001, maximumFractionDigits: 1),
-        .init(maximumDistance: Measurement(value: 5, unit: .kilometers), roundingIncrement: 0.0001, maximumFractionDigits: 0)
+        .init(maximumDistance: Measurement(value: 10, unit: .kilometers), roundingIncrement: 0.0001, maximumFractionDigits: 2),
+        .init(maximumDistance: Measurement(value: 11, unit: .kilometers), roundingIncrement: 0.0001, maximumFractionDigits: 0)
     ])
     
     static var uk: RoundingTable = RoundingTable(thresholds: [
         .init(maximumDistance: Measurement(value: 20, unit: .yards), roundingIncrement: 10, maximumFractionDigits: 0),
         .init(maximumDistance: Measurement(value: 100, unit: .yards), roundingIncrement: 25, maximumFractionDigits: 0),
         .init(maximumDistance: Measurement(value: 0.1, unit: .miles).converted(to: .yards), roundingIncrement: 50, maximumFractionDigits: 1),
-        .init(maximumDistance: Measurement(value: 3, unit: .miles), roundingIncrement: 0.1, maximumFractionDigits: 1),
-        .init(maximumDistance: Measurement(value: 5, unit: .miles), roundingIncrement: 0.0001, maximumFractionDigits: 0)
+        .init(maximumDistance: Measurement(value: 10, unit: .miles), roundingIncrement: 0.1, maximumFractionDigits: 2),
+        .init(maximumDistance: Measurement(value: 11, unit: .miles), roundingIncrement: 0.0001, maximumFractionDigits: 0)
     ])
     
     static var us: RoundingTable = RoundingTable(thresholds: [
         .init(maximumDistance: Measurement(value: 0.1, unit: .miles).converted(to: .feet), roundingIncrement: 50, maximumFractionDigits: 0),
-        .init(maximumDistance: Measurement(value: 3, unit: .miles), roundingIncrement: 0.1, maximumFractionDigits: 1),
-        .init(maximumDistance: Measurement(value: 5, unit: .miles), roundingIncrement: 0.0001, maximumFractionDigits: 0)
+        .init(maximumDistance: Measurement(value: 10, unit: .miles), roundingIncrement: 0.1, maximumFractionDigits: 2),
+        .init(maximumDistance: Measurement(value: 11, unit: .miles), roundingIncrement: 0.0001, maximumFractionDigits: 0)
     ])
 }
 
